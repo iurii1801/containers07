@@ -18,7 +18,7 @@ git clone git@github.com:iurii1801/containers07.git
 
 ![image](https://i.imgur.com/Jcw6hEN.png)
 
-### 2. Созданы папки `nginx/` и `mounts/site/`, в которой будет сайт на **PHP**,созданный в рамках предмета по **PHP**.
+### 2. Созданы папки `nginx/` и `mounts/site/`, в которой будет сайт на **PHP**, созданный в рамках предмета по **PHP**.
 
 ```sh
 # Создание папки для конфигурации nginx
