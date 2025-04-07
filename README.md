@@ -10,38 +10,60 @@
 
 ## Ход работы
 
-### 1. Клонирование пустого Git-репозитория
+### 1. Клонирован пустой Git-репозиторий `containers07`
 
 ```bash
 git clone git@github.com:iurii1801/containers07.git
 ```
 
-### 2. Создание структуры проекта
+![image](https://i.imgur.com/Jcw6hEN.png)
 
-Созданы папки `nginx/` и `mounts/site/`, куда позже будет размещён сайт.
+### 2. Созданы папки `nginx/` и `mounts/site/`
 
-```bash
-mkdir -p mounts/site
-mkdir nginx
+```sh
+# Создание папки для конфигурации nginx
+New-Item -ItemType Directory -Path "nginx"
+
+# Создание вложенной папки для сайта
+New-Item -ItemType Directory -Path "mounts/site" -Force
 ```
+
+![image](https://i.imgur.com/fADo0z1.png)
 
 ### 3. Создание файлов `.gitignore` и `README.md`
 
-```bash
+```sh
+# Создание файла .gitignore
 New-Item -Name ".gitignore" -ItemType "File"
+```
+
+![image](https://i.imgur.com/vsW6pjW.png)
+
+```sh
+# Создание файла README.md
 New-Item -Name "README.md" -ItemType "File"
 ```
 
-### 4. Добавлено правило в `.gitignore`
+![image](https://i.imgur.com/M5nHCFb.png)
 
-```text
+### 4. В `.gitignore` добавлено
+
+```sh
 # Ignore files and directories
 mounts/site/*
 ```
 
-### 5. Создание конфигурации nginx
+![image](https://i.imgur.com/fge7ows.png)
 
-Создан файл `nginx/default.conf` со следующим содержимым:
+### 5. В директории `containers07` добавлен файл `nginx/default.conf`
+
+```nginx
+New-Item -Path "nginx" -Name "default.conf" -ItemType "File"
+```
+
+![image](https://i.imgur.com/GJ5KJLj.png)
+
+со следующим содержимым
 
 ```nginx
 server {
@@ -49,11 +71,9 @@ server {
     server_name _;
     root /var/www/html;
     index index.php;
-
     location / {
         try_files $uri $uri/ /index.php?$args;
     }
-
     location ~ \.php$ {
         fastcgi_pass backend:9000;
         fastcgi_index index.php;
@@ -62,6 +82,8 @@ server {
     }
 }
 ```
+
+![image](https://i.imgur.com/8hwrDQg.png)
 
 ### 6. Создание переменных окружения
 
@@ -76,6 +98,8 @@ MYSQL_USER=user
 MYSQL_PASSWORD=secret
 ```
 
+![image](https://i.imgur.com/noa6QPc.png)
+
 #### 6.2 Создание файла `app.env`
 
 Создан файл `app.env` в корне проекта. Он предназначен для хранения пользовательских переменных окружения, которые можно переиспользовать в нескольких сервисах. Это удобно для настройки общих параметров, таких как версии приложения, режим работы, параметры путей и другие конфигурационные данные, которые должны быть доступны одновременно как `frontend`, так и `backend`. Такой подход способствует более чистой архитектуре, лучшей управляемости и облегчает развертывание приложения в разных средах (например, dev, test, prod).
@@ -84,9 +108,11 @@ MYSQL_PASSWORD=secret
 APP_VERSION=1.0.0
 ```
 
+![image](https://i.imgur.com/El5tHEz.png)
+
 Этот файл содержит пользовательскую переменную окружения `APP_VERSION`, которую можно использовать внутри контейнеров для отображения информации о версии приложения, ведения логов или другой конфигурации. Переменная подключается в `docker-compose.yml` к сервисам `frontend` и `backend` через параметр `env_file`. Это позволяет централизованно управлять значениями и использовать их в конфигурациях или PHP-коде (например, через `getenv('APP_VERSION')`).
 
-### 7. Создание docker-compose.yml
+### 7. Создание docker-compose.yml в директории `containers07`
 
 Файл `docker-compose.yml` в корне проекта:
 
@@ -132,11 +158,15 @@ volumes:
   db_data: {}
 ```
 
+![image](https://i.imgur.com/87UCjvq.png)
+
 ### 8. Запуск контейнеров и тестирование
 
 ```bash
 docker-compose up -d
 ```
+
+![image](https://i.imgur.com/AyjZWWa.png)
 
 Контейнеры успешно запущены и взаимодействуют между собой. Сайт работает по адресу: [http://localhost](http://localhost).
 
