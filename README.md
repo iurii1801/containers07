@@ -20,7 +20,7 @@ git clone git@github.com:iurii1801/containers07.git
 
 ### 2. Созданы папки `nginx/` и `mounts/site/`, в которой будет сайт на **PHP**, созданный в рамках предмета по **PHP**.
 
-```sh
+```powershell
 # Создание папки для конфигурации nginx
 New-Item -ItemType Directory -Path "nginx"
 
@@ -32,14 +32,14 @@ New-Item -ItemType Directory -Path "mounts/site" -Force
 
 ### 3. Создание файлов `.gitignore` и `README.md`
 
-```sh
+```powershell
 # Создание файла .gitignore
 New-Item -Name ".gitignore" -ItemType "File"
 ```
 
 ![image](https://i.imgur.com/vsW6pjW.png)
 
-```sh
+```powershell
 # Создание файла README.md
 New-Item -Name "README.md" -ItemType "File"
 ```
